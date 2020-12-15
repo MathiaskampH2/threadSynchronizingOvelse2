@@ -11,7 +11,6 @@ namespace threadSynchronizingOvelse2
     {
         // shared variables that both threads can access and use
         private static int Counter = 0;
-        private static object Lock = new object();
         private static char ch;
 
         private static void Main(string[] args)
@@ -33,9 +32,7 @@ namespace threadSynchronizingOvelse2
         {
             while (true)
             {
-                Monitor.Enter(Lock);
-                try
-                {
+                
                     for (int i = 0; i < 60; i++)
                     {
                         ch = '*';
@@ -44,11 +41,7 @@ namespace threadSynchronizingOvelse2
                         Counter++;
                     }
                     Console.Write(Counter + "\n");
-                }
-                finally
-                {
-                    Monitor.Exit(Lock);
-                }
+               
 
                 Thread.Sleep(1000);
             }
@@ -59,22 +52,16 @@ namespace threadSynchronizingOvelse2
         {
             while (true)
             {
-                Monitor.Enter(Lock);
-                try
-                {
-                    for (int i = 0; i < 60; i++)
-                    {
-                        ch = '#';
-                        Console.Write(ch);
 
-                        Counter++;
-                    }
-                    Console.Write(Counter + "\n");
-                }
-                finally
+                for (int i = 0; i < 60; i++)
                 {
-                    Monitor.Exit(Lock);
+                    ch = '#';
+                    Console.Write(ch);
+
+                    Counter++;
                 }
+                Console.Write(Counter + "\n");
+
 
                 Thread.Sleep(1000);
             }
